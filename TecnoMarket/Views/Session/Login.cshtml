@@ -1,0 +1,48 @@
+﻿@using TecnoMarket.Core.ViewModels
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="m-5  ">
+        <div class="container  m-5 shadow-lg  border rounded">
+            <div class="row ">
+                <div class=" col-sm-6 col-md-6 col-lg-6 d-flex justify-content-start">
+                    <img src="~/img/login-image.png" class="d-block mx-auto " />
+                </div>
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                    <div class="container">
+                        <h4 class="text-center mt-5"><strong>Iniciar Sesion</strong></h4>
+                        <form method="post">
+                        <div class="form-group @ViewData["ValidacionGroup"]">
+                            <label asp-for="Email" class="form-label">Correo:</label>
+                            <input asp-for="Email" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su correo..." />
+                            <span asp-validation-for="Email" class="@ViewData["ValidacionSpan"]"></span>
+                        </div>
+                        <div class="form-group @ViewData["ValidacionGroup"]">
+                            <label asp-for="Password" class="form-label">Contraseña:</label>
+                            <input asp-for="Password" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su contraseña..." />
+                            <span asp-validation-for="Password" class="@ViewData["ValidacionSpan"]"></span>
+                        </div>
+                        <div class="d-flex justify-content-center container row mt-3 ">
+                            <button type="submit" class="btn btn-primary col-lg-5">Iniciar Sesion</button>
+                            <a asp-action="Register" class="btn btn-success ms-2 col-lg-5">Registrarse</a>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
