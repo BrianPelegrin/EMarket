@@ -49,10 +49,10 @@ namespace TecnoMarket.Infraestructure.Repositories
 
             foreach(var include in IncludeProperties)
             {
-                query = query.Include(include);
+                query = query.Include(include).AsNoTracking();
             }
 
-            return query; ;
+            return query; 
         }
 
         public IQueryable<T> GetByIdWithInclude(int id,params Expression<Func<T, object>>[] IncludeProperties)

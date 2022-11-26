@@ -6,6 +6,8 @@ builder.Services.AddContexts(builder.Configuration);
 builder.Services.AddIdentity();
 builder.Services.AddServices();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
 
 var app = builder.Build();
 
