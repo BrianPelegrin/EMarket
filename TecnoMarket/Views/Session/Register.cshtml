@@ -1,56 +1,69 @@
 ﻿@using TecnoMarket.Core.ViewModels
 @model UserRegistrationViewModel
-
 @{
     ViewData["Title"] = "Login";
-    Layout = null;
+    Layout = "~/Views/Shared/_SesionLayout.cshtml";
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<body>
-    <div class="m-5  ">
-        <div class="container  m-5 shadow-lg  border rounded">
-            <div class=" m-5">
-                    <h4 class="text-center mt-5"><strong>Formulario de Registro</strong></h4>
-                    <form method="post" class="container row">
-                        <div class="form-group col-sm-12 @ViewData["ValidacionGroup"]">
+<div class="card o-hidden border-0 shadow-lg  my-5">
+    <div class="card-body  p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+            <div class="col-lg-7">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                    </div>
+                    <form class="row" asp-action="Register">
+                        <div class="form-group col-sm-12 ">
                             <label asp-for="FullName" class="form-label">Nombre Completo:</label>
-                            <input asp-for="FullName" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su Nombre Completo..." />
-                            <span asp-validation-for="FullName" class="@ViewData["ValidacionSpan"]"></span>
+                            <input asp-for="FullName" class="form-control " placeholder="Digite su Nombre Completo..." />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
-                        <div class="form-group col-sm-6 @ViewData["ValidacionGroup"]">
+                        <div class="form-group col-sm-6">
                             <label asp-for="Email" class="form-label">Correo:</label>
-                            <input asp-for="Email" type="email" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su correo..." />
-                            <span asp-validation-for="Email" class="@ViewData["ValidacionSpan"]"></span>
+                            <input asp-for="Email" type="email" class="form-control " placeholder="Digite su correo..." />
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group col-sm-6 ">
                             <label asp-for="PhoneNumber" class="form-label">Telefono:</label>
                             <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Digite su Telefono..." />
-                            <span asp-validation-for="PhoneNumber" ></span>
+                            <span asp-validation-for="PhoneNumber"></span>
                         </div>
-                        <div class="form-group col-sm-6 @ViewData["ValidacionGroup"]">
+                        <div class="form-group col-sm-6">
                             <label asp-for="Password" class="form-label">Contraseña:</label>
-                            <input asp-for="Password" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su contraseña..." />
-                            <span asp-validation-for="Password" class="@ViewData["ValidacionSpan"]"></span>
+                            <input asp-for="Password" class="form-control" placeholder="Digite su contraseña..." />
+                            <span asp-validation-for="Password " class="text-danger"></span>
                         </div>
-                        <div class="form-group col-sm-6 @ViewData["ValidacionGroup"]">
+                        <div class="form-group col-sm-6 ">
                             <label asp-for="ConfirmPassword" class="form-label">Confirmar Contraseña:</label>
-                            <input asp-for="ConfirmPassword" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su contraseña nuevamente..." />
-                            <span asp-validation-for="ConfirmPassword" class="@ViewData["ValidacionSpan"]"></span>
+                            <input asp-for="ConfirmPassword" class="form-control " placeholder="Digite su contraseña nuevamente..." />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
-                        <div class="d-flex justify-content-center container row mt-3 ">
+                        <div class="d-flex justify-content-center container row my-3 ">
                             <button type="submit" class="btn btn-success col-lg-5">Registrarse</button>
                             <a asp-action="Login" class="btn btn-danger ms-2 col-lg-5">Cancelar Registro</a>
                         </div>
+                        <hr>
+                        <div class="d-flex justify-content-center">
+                            
+                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                            <i class="fab fa-google fa-fw"></i> Register with Google
+                        </a>
+                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                        </a>
+                        </div>
+                        
                     </form>
+
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial.cshtml" />
+   }

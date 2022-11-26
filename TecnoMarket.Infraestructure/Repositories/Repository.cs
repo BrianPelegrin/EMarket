@@ -22,7 +22,7 @@ namespace TecnoMarket.Infraestructure.Repositories
             var entity = _entity.FirstOrDefault(x => x.Id == id);
             if (entity == null) return null;
 
-            entity.StatuId = (int)EnumsStatus.Status.Inactive;
+            entity.StatuId = entity.StatuId == (int)EnumsStatus.Status.Inactive ? (int)EnumsStatus.Status.Active : (int)EnumsStatus.Status.Inactive;
             _entity.Update(entity);
             _context.SaveChanges();
             return entity;
@@ -49,10 +49,10 @@ namespace TecnoMarket.Infraestructure.Repositories
 
             foreach(var include in IncludeProperties)
             {
-                query.Include(include);
+                query = query.Include(include);
             }
 
-            return query.AsNoTracking();
+            return query; ;
         }
 
         public IQueryable<T> GetByIdWithInclude(int id,params Expression<Func<T, object>>[] IncludeProperties)
@@ -61,7 +61,7 @@ namespace TecnoMarket.Infraestructure.Repositories
 
             foreach (var include in IncludeProperties)
             {
-                query.Include(include);
+                query =  query.Include(include);
             }
 
             return query.AsNoTracking().Where(x=> x.Id == id);

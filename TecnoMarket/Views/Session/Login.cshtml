@@ -3,46 +3,75 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = null;
+    Layout = "~/Views/Shared/_SesionLayout.cshtml";
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<body>
-    <div class="m-5  ">
-        <div class="container  m-5 shadow-lg  border rounded">
-            <div class="row ">
-                <div class=" col-sm-6 col-md-6 col-lg-6 d-flex justify-content-start">
-                    <img src="~/img/login-image.png" class="d-block mx-auto " />
-                </div>
-                <div class="col-lg-6 col-sm-6 col-md-6">
-                    <div class="container">
-                        <h4 class="text-center mt-5"><strong>Iniciar Sesion</strong></h4>
-                        <form method="post">
-                        <div class="form-group @ViewData["ValidacionGroup"]">
-                            <label asp-for="Email" class="form-label">Correo:</label>
-                            <input asp-for="Email" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su correo..." />
-                            <span asp-validation-for="Email" class="@ViewData["ValidacionSpan"]"></span>
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Iniciar Sesion</h1>
+                                </div>
+                                <form asp-action="Login">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Email" class="form-label">Correo:</label>
+                                        <input asp-for="Email" class="form-control"  placeholder="Digite su correo..." />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Password" class="form-label">Contraseña:</label>
+                                        <input asp-for="Password" class="form-control" placeholder="Digite su contraseña..." />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" asp-for="RememberMe">
+                                            <label class="custom-control-label" for="customCheck">
+                                                Remember
+                                                Me
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-primary  btn-block">
+                                            Iniciar Sesion
+                                        </button>
+                                    </div>
+
+                                    <hr>
+                                    <a class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                    </a>
+                                    <a class="btn btn-facebook btn-user btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                    </a>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a asp-action="Register" class="small">Create an Account!</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group @ViewData["ValidacionGroup"]">
-                            <label asp-for="Password" class="form-label">Contraseña:</label>
-                            <input asp-for="Password" class="form-control @ViewData["ValidacionInput"]" placeholder="Digite su contraseña..." />
-                            <span asp-validation-for="Password" class="@ViewData["ValidacionSpan"]"></span>
-                        </div>
-                        <div class="d-flex justify-content-center container row mt-3 ">
-                            <button type="submit" class="btn btn-primary col-lg-5">Iniciar Sesion</button>
-                            <a asp-action="Register" class="btn btn-success ms-2 col-lg-5">Registrarse</a>
-                        </div>
-                    </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial.cshtml" />
+        }
+

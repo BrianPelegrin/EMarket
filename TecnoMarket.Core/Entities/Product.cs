@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TecnoMarket.Core.Entities
+﻿namespace TecnoMarket.Core.Entities
 {
     public class Product: BaseEntity
     {
@@ -13,7 +7,7 @@ namespace TecnoMarket.Core.Entities
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
 
-        public Statu Statu { get; set; }
+        public virtual Statu Statu { get; set; }
         public virtual Category Category { get; set; }
     }
 }
