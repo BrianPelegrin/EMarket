@@ -11,7 +11,8 @@ namespace TecnoMarket.Mappings
             CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<Statu, StatuViewModel>().ReverseMap();
-
+            CreateMap<Picture, PictureViewModel>().ReverseMap();
+            CreateMap<ProductPicture, ProductPictureViewModel>().ReverseMap();
 
         }
     }

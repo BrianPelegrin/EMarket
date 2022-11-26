@@ -1,37 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TecnoMarket.Core.Interfaces;
+using TecnoMarket.Core.Entities;
 using TecnoMarket.Models;
+using TecnoMarket.Extensions;
+using TecnoMarket.Core.ViewModels;
 
 namespace TecnoMarket.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController<Category, HomeController>
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Index(string nombre)
-        {
-            return RedirectToAction(nameof(Privacy),new { nombre });
+            var query = _entity.GetAllWithInclude(x => x.Products);
+            var queryMapped = _mapper.Map<IEnumerable<CategoryViewModel>>(query);
+            return View(queryMapped);
         }
 
-        public IActionResult Privacy(string nombre)
-        {
-            return View("Privacy",nombre);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

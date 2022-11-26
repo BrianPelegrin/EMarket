@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ public static class ServicesRegistration
     public static void AddServices(this IServiceCollection services)
     {
         services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+        services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
     }
 }
 

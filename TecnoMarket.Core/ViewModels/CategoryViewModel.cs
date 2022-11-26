@@ -1,6 +1,6 @@
 ﻿namespace TecnoMarket.Core.ViewModels
 {
-    public class CategoryViewModel
+    public class CategoryViewModel: BaseEntityViewModel
     {
         public string Description { get; set; }
 

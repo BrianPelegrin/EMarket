@@ -31,10 +31,18 @@ html {
     background-size: cover;
 }
 
-body {
-    margin-bottom: 60px;
-    background-color: #3459E6;
+.carousel-item {
+    height: 65vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
+
+
+
 
 .input-validation-error ~ .invalid-feedback, .input-validation-error ~ .invalid-tooltip, .was-validated :invalid ~ .invalid-feedback, .was-validated :invalid ~ .invalid-tooltip {
     display: block
