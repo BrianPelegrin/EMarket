@@ -19,7 +19,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Iniciar Sesion</h1>
                                 </div>
-                                <form asp-action="Login">
+                                <form asp-action="Login" >
                                     <div class="form-group mb-3">
                                         <label asp-for="Email" class="form-label">Correo:</label>
                                         <input asp-for="Email" class="form-control"  placeholder="Digite su correo..." />
@@ -69,7 +69,7 @@
     </div>
 </div>
 
-
+<partial name="_NotificationPartial" />
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial.cshtml" />

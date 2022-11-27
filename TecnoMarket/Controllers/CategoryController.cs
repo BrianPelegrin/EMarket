@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TecnoMarket.Core.Entities;
 using TecnoMarket.Core.ViewModels;
 using TecnoMarket.Extensions;
@@ -7,7 +8,7 @@ namespace TecnoMarket.Controllers
 {
     public class CategoryController : BaseController<Category, CategoryController>
     {
-        
+        [Authorize]
         [HttpGet]
         public IActionResult CategoryList()
         {

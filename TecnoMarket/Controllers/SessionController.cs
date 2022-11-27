@@ -36,6 +36,10 @@ namespace TecnoMarket.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    BasicNotificaction(NotificationType.Error, "Credenciales Invalidas", "El Usuario o la Contraseña son incorrectos");
+                }
 
             }
 
@@ -75,5 +79,15 @@ namespace TecnoMarket.Controllers
             return View();
 
         }
+
+        [HttpPost]
+        public async void Logout()
+        {
+             await _signInManager.SignOutAsync();
+
+        }
+
+        private void BasicNotificaction(NotificationType type, string title, string NotificationMessage = "")
+            => TempData["notification"] = $"Swal.fire('{title}','{NotificationMessage}','{type.ToString().ToLower()}')";
     }
 }

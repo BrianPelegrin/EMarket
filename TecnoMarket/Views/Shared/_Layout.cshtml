@@ -20,16 +20,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 d-flex justify-content-start">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link  text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="ProductList">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="CategoryList">Categorias</a>
-                        </li>
+
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
+                       <partial name="_ValidationSessionPartial" />
                     </ul>
                 </div>
             </div>
@@ -43,7 +41,7 @@
     </div>
 
     <footer class="border-top footer text-muted py-3 bg-white">
-        <div class="container"><p class="m-0 text-center text-dark">Copyright © Your Website 2022</p></div>
+        <div class="container"><p class="m-0 text-center text-dark">Copyright© Brian Pelegrin</p></div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

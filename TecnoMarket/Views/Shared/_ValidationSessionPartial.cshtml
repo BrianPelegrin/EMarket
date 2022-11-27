@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using TecnoMarket.Core.Entities.SecurityEntities
+
+@inject UserManager<ApplicationUser> UserManager;
+@inject SignInManager<ApplicationUser> SignInManager;
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="ProductList">Productos</a>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link text-darks" asp-area="" asp-controller="Category" asp-action="CategoryList">Categorias</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @UserManager.GetUserName(User)
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <hr />
+            <li><button class="dropdown-item" onclick="OnLogout()"><i class="bi bi-box-arrow-left"></i>   Logout</button></li>
+        </ul>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Session" asp-action="Login">Iniciar Sesion</a>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link text-darks" asp-area="" asp-controller="Session" asp-action="Register">Registrarse</a>
+    </li>
+
+}
+
+<script>
+    function OnLogout() {
+        fetch("http://localhost:5211/Session/Logout", {
+            method: "POST"
+        }
+        ).then((respuesta) => location.reload())
+    }
+</script>

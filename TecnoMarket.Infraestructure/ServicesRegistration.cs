@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,8 +22,13 @@ public static class ServicesRegistration
     public static void AddIdentity(this IServiceCollection services)
     {
         services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationContext>()
-            .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationContext>();
+
+        services.ConfigureApplicationCookie(options =>
+         {
+             options.LoginPath = new PathString("/Session/Login");
+         });
+
     }
 
     public static void AddServices(this IServiceCollection services)
