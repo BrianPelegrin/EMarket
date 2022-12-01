@@ -11,9 +11,13 @@ namespace TecnoMarket.Controllers
     {
         [Authorize]
         [HttpGet]
-        public IActionResult ProductList()
+        public IActionResult ProductList(string? ProductName = null)
         {
             var query = _entity.GetAllWithInclude(x=>x.Category,x=>x.Statu);
+            if(ProductName != null)
+            {
+                query = query.Where(x => x.Name.Contains(ProductName));
+            }
             var modelMaped = _mapper.Map<IEnumerable<ProductViewModel>>(query);
             return View(modelMaped);
         }
@@ -24,6 +28,13 @@ namespace TecnoMarket.Controllers
             var query = _entity.GetByIdWithInclude(id, x=> x.Category);
             var modelMaped = _mapper.Map<IEnumerable<ProductViewModel>>(query);
             return View(modelMaped);
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public IActionResult ProductAdd()
+        {
+            return View();
         }
 
         [HttpPost]

@@ -13,7 +13,7 @@ namespace TecnoMarket.Controllers
 
         public IActionResult Index()
         {
-            var query = _entity.GetAllWithInclude(x => x.Products).Where(x=>x.StatuId != (int)EnumsStatus.Status.Inactive);
+            var query = _entity.GetAllWithInclude(x => x.Products.Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive)).Where(x=>x.StatuId != (int)EnumsStatus.Status.Inactive);
             var queryMapped = _mapper.Map<IEnumerable<CategoryViewModel>>(query);
             return View(queryMapped);
         }

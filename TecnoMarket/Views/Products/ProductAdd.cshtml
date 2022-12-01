@@ -1,0 +1,31 @@
+﻿@using TecnoMarket.Core.ViewModels
+@model ProductViewModel
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<div class="grid text-center" style="--bs-columns: 3;">
+  <div>Auto-column</div>
+  <div>Auto-column</div>
+  <div>Auto-column</div>
+</div>
+<div class="container m-5">
+    <form method="post" asp-action="ProductAdd" asp-controller="Products">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Formulario de Productos
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="Name">Nombre:</label>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="Digite el nombre del producto..." />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
