@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
         public string UserCreator { get; set; } = string.Empty;
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime ModifiedDate { get; set; }
-        public int StatuId { get; set; }
+        public int StatuId { get; set; } = (int)EnumsStatus.Status.Active;
     }
 }

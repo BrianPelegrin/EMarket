@@ -3,14 +3,9 @@
 @{
     ViewData["Title"] = "Productos";
 }
-
-<div class="grid text-center" style="--bs-columns: 3;">
-  <div>Auto-column</div>
-  <div>Auto-column</div>
-  <div>Auto-column</div>
-</div>
-<div class="container m-5">
-    <form method="post" asp-action="ProductAdd" asp-controller="Products">
+                
+<div class="container-fluid mt-5 d-flex justify-content-center" id="formProduct">
+    <form method="post" asp-action="ProductAdd" asp-controller="Products" enctype="multipart/form-data" class=" ">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
@@ -19,12 +14,37 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group">
-                        <label class="form-label" asp-for="Name">Nombre:</label>
+                    <div class="form-group col-md-6">
+                        <label class="form-label " asp-for="Name">Nombre:</label>
                         <input type="text" class="form-control" asp-for="Name" placeholder="Digite el nombre del producto..." />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label" asp-for="Price">Precio:</label>
+                        <input type="number" class="form-control" asp-for="Price" placeholder="Digite el nombre del producto..." />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label" asp-for="CategoryId">Categoria:</label>
+                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.SelectCategory">
+                            <option>Seleccione una categoria</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label" for="Pictures">Foto:</label>
+                        <input class="form-control" type="file" name="PicturesList" multiple>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="form-label" asp-for="Description">Descripcion:</label>
+                        <textarea class="form-control" asp-for="Description" placeholder="Digite descripcion del producto..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
                 </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a asp-action="ProductList" asp-controller="Products" class="btn btn-secondary" type="submit">Volver</a>
             </div>
         </div>
     </form>

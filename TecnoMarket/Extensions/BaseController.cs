@@ -5,7 +5,7 @@ using TecnoMarket.Core.Interfaces;
 
 namespace TecnoMarket.Extensions
 {
-    public class BaseController<TEntity,TController> : Controller where TEntity : BaseEntity where TController : Controller
+    public abstract class BaseController<TEntity,TController> : Controller where TEntity : BaseEntity where TController : Controller
     {
         #region DependencyInjection
 
