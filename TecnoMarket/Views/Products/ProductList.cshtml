@@ -38,7 +38,7 @@
                                 <td>@Html.DisplayFor(x=> item.Category.Description)</td>
                                 <td>@Html.DisplayFor(x=> item.Statu.Description)</td>
                                 <td>
-                                    <a class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                    <a class="btn btn-primary" asp-action="ProductUpdate" asp-controller="Products" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
                                     <button onclick="OnDelete(@item.Id)" class="btn btn-danger"><i class="bi bi-toggles"></i></button>
                                 </td>
                             </tr>

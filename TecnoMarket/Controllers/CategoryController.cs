@@ -6,9 +6,9 @@ using TecnoMarket.Extensions;
 
 namespace TecnoMarket.Controllers
 {
+        [Authorize]
     public class CategoryController : BaseController<Category, CategoryController>
     {
-        [Authorize]
         [HttpGet]
         public IActionResult CategoryList()
         {
@@ -17,12 +17,25 @@ namespace TecnoMarket.Controllers
             return View(modelMaped);
         }
 
+        [HttpGet]
+        public IActionResult CategoryAdd()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult CategoryAdd(CategoryViewModel Category)
         {
             var modelMaped = _mapper.Map<Category>(Category);
-            _entity.Save(modelMaped);
-            return View();
+            var modelSaved = _entity.Save(modelMaped);
+            if (modelSaved == null)
+            {
+                BasicNotificaction(NotificationType.Error, "Ocurrio un error", "Ocurrio un Error al guardar la categoria");
+                return View();
+            }
+            BasicNotificaction(NotificationType.Success, "Guardado Exitosamente");
+            Thread.Sleep(100);
+            return RedirectToAction(nameof(CategoryList));
         }
 
         [HttpDelete]
@@ -39,12 +52,26 @@ namespace TecnoMarket.Controllers
             return true;
         }
 
-        [HttpPut]
+        [HttpGet]
+        public IActionResult CategoryUpdate(int id)
+        {
+            var query = _mapper.Map<CategoryViewModel>(_entity.Get(id));
+            return View(query);
+        }
+
+        [HttpPost]
         public IActionResult CategoryUpdate(CategoryViewModel Category)
         {
             var modelMaped = _mapper.Map<Category>(Category);
-            _entity.Save(modelMaped);
-            return View();
+            var modelSaved = _entity.Save(modelMaped);
+            if (modelSaved == null)
+            {
+                BasicNotificaction(NotificationType.Error, "Ocurrio un error", "Ocurrio un Error al actualizar la categoria");
+                return View();
+            }
+            BasicNotificaction(NotificationType.Success, "Actualizada Exitosamente");
+            Thread.Sleep(100);
+            return RedirectToAction(nameof(CategoryList));
         }
     }
 }

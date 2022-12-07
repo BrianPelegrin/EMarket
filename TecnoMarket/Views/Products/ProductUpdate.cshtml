@@ -4,8 +4,8 @@
     ViewData["Title"] = "Productos";
 }
 
-<div class="container-fluid mt-5 d-flex justify-content-center" id="formProduct">
-    <form method="post" asp-action="ProductAdd" asp-controller="Products" enctype="multipart/form-data" class=" ">
+<div class="container-fluid mt-5 d-flex justify-content-center">
+    <form method="post" asp-action="ProductUpdate" asp-controller="Products" enctype="multipart/form-data">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
@@ -13,6 +13,7 @@
                 </h3>
             </div>
             <div class="card-body">
+                <input type="text" class="form-control" asp-for="Id" hidden placeholder="Digite el nombre del producto..." />
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label class="form-label " asp-for="Name">Nombre:</label>
@@ -27,6 +28,7 @@
                     <div class="form-group col-md-6">
                         <label class="form-label" asp-for="CategoryId">Categoria:</label>
                         <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.SelectCategory">
+                            <option>Seleccione una categoria</option>
                         </select>
                         <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>

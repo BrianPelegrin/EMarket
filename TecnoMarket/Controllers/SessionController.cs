@@ -30,11 +30,15 @@ namespace TecnoMarket.Controllers
             if (ModelState.IsValid)
             {
                 
-                var sesion = await _signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent: login.RememberMe, lockoutOnFailure: false);
+                var sesion = await _signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent: login.RememberMe, lockoutOnFailure: true);
                 if (sesion.Succeeded)
                 {
 
                     return RedirectToAction("Index", "Home");
+                }
+                if (sesion.IsLockedOut)
+                {
+                    BasicNotificaction(NotificationType.Error, "Usuario Bloqueado", "El Usuario se ha bloqueado temporalmente por exceso de intentos fallidos");
                 }
                 else
                 {

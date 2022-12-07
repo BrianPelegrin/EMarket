@@ -27,7 +27,16 @@ public static class ServicesRegistration
         services.ConfigureApplicationCookie(options =>
          {
              options.LoginPath = new PathString("/Session/Login");
+             options.AccessDeniedPath = new PathString("/Session/Login");
          });
+
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.MaxFailedAccessAttempts = 3;
+            options.Password.RequireLowercase = false;
+            options.Password.RequiredLength = 5;
+        });
 
     }
 

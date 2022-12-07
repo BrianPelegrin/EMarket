@@ -13,10 +13,12 @@ namespace TecnoMarket.Controllers
     public class ProductsController : BaseController<Product, ProductsController>
     {
         private readonly IRepository<Category> _categories;
+        private readonly IRepository<ProductPicture> _productPictures;
 
-        public ProductsController(IRepository<Category> categories)
+        public ProductsController(IRepository<Category> categories, IRepository<ProductPicture> productPictures)
         {
             _categories = categories;
+            _productPictures = productPictures;
         }
 
         [Authorize]
@@ -51,7 +53,7 @@ namespace TecnoMarket.Controllers
         [Authorize]
         public IActionResult ProductAdd(ProductViewModel product, IFormFileCollection PicturesList)
         {
-            ViewData["SelectCategory"] = new SelectList(_categories.GetAll(), "CategoryId", "Description");
+           
             if (ModelState.IsValid)
             {
                 var modelMaped = _mapper.Map<Product>(product);
@@ -76,8 +78,44 @@ namespace TecnoMarket.Controllers
             }
             else
             {
-                ViewData["SelectCategory"] = new SelectList(_categories.GetAll(), "CategoryId", "Description");
+                ViewData["SelectCategory"] = new SelectList(_categories.GetAll(), "Id", "Description");
                 return View();
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult ProductUpdate(int id)
+        {
+            ViewData["SelectCategory"] = new SelectList(_categories.GetAll(), "Id", "Description");
+            var query = _entity.Get(id);
+            var modelMaped = _mapper.Map<ProductViewModel>(query);
+            return View(modelMaped);
+        }
+
+        [HttpPost]
+        public IActionResult ProductUpdate(ProductViewModel product, IFormFileCollection PicturesList)
+        {
+            ViewData["SelectCategory"] = new SelectList(_categories.GetAll(), "Id", "Description");
+            var modelMaped = _mapper.Map<Product>(product);
+            var modelSaved = _entity.Save(modelMaped);
+            if (modelSaved == null)
+            {
+                ViewData["SelectCategory"] = new SelectList(_categories.GetAll(), "Id", "Description");
+                BasicNotificaction(NotificationType.Error, "Ocurrio un error", "Ocurrio un Error al modificar el estado de el producto");
+                return View();
+            }
+            else
+            {
+                if (PicturesList.Count > 0)
+                {
+                    var picturesQuery = _productPictures.GetAll().Where(x => x.ProductId.Equals(modelSaved.Id)).Select(x => x.Image).ToList();
+                    var images = ImageManager.ImageToBase64(PicturesList,picturesQuery);
+                    modelMaped.Pictures = ProductPictureManager(images, modelSaved.Id);
+                    _entity.Save(modelMaped);
+                }
+                BasicNotificaction(NotificationType.Success, "Guardado Exitosamente");
+                return RedirectToAction("ProductList");
             }
         }
 
@@ -94,23 +132,6 @@ namespace TecnoMarket.Controllers
             BasicNotificaction(NotificationType.Success, "Modificacion Exitosa");
             return true;
         }
-
-        [HttpGet]
-        public IActionResult ProductUpdate(int id)
-        {
-            var query = _entity.GetByIdWithInclude(id, x=> x.Pictures, prop=> prop.Category, prop=>prop.Statu);
-            var modelMaped = _mapper.Map<IEnumerable<Product>>(query);
-            return View(modelMaped);
-        }
-
-        [HttpPut]
-        public IActionResult ProductUpdate(ProductViewModel product)
-        {
-            var modelMaped = _mapper.Map<Product>(product);
-            _entity.Save(modelMaped);
-            return RedirectToAction("ProductList");
-        }
-
 
         private ICollection<ProductPicture> ProductPictureManager(List<string> images, int productId)
         {
