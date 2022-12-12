@@ -88,7 +88,20 @@ namespace TecnoMarket.Controllers
         public async void Logout()
         {
              await _signInManager.SignOutAsync();
+        }
 
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(string Email)
+        {
+            BasicNotificaction(NotificationType.Success,"Correo Enviado Exitosamente","Se Envio un correo para que pueda restablecer su contraseña");
+            Thread.Sleep(1000);
+            return View("Login");
         }
 
         private void BasicNotificaction(NotificationType type, string title, string NotificationMessage = "")

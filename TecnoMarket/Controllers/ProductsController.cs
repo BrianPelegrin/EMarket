@@ -107,14 +107,21 @@ namespace TecnoMarket.Controllers
             }
             else
             {
-                if (PicturesList.Count > 0)
+                if (PicturesList.Count > 0 && PicturesList != null)
                 {
+                    var images = new List<string>();
                     var picturesQuery = _productPictures.GetAll().Where(x => x.ProductId.Equals(modelSaved.Id)).Select(x => x.Image).ToList();
-                    var images = ImageManager.ImageToBase64(PicturesList,picturesQuery);
+                    if(picturesQuery.Count > 0 && picturesQuery != null)
+                    {
+                         images = ImageManager.ImageToBase64(PicturesList,picturesQuery);
+
+                    }
+                     images = ImageManager.ImageToBase64(PicturesList);
                     modelMaped.Pictures = ProductPictureManager(images, modelSaved.Id);
                     _entity.Save(modelMaped);
                 }
                 BasicNotificaction(NotificationType.Success, "Guardado Exitosamente");
+                Thread.Sleep(1000);
                 return RedirectToAction("ProductList");
             }
         }
