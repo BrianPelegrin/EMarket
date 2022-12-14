@@ -12,6 +12,7 @@ namespace TecnoMarket.Controllers
         [HttpGet]
         public IActionResult CategoryList()
         {
+            BasicModal("CategoryAdd","Formulario de Categoria");
             var query = _entity.GetAllWithInclude(x=>x.Products,x=>x.Statu);
             var modelMaped = _mapper.Map<IEnumerable<CategoryViewModel>>(query);
             return View(modelMaped);

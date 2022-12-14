@@ -12,7 +12,7 @@
             <div class="row d-inline-flex container-fluid">
                 <h2 class="card-title col-8">Lista de Categorias</h2>
                 <div class="col-2"></div>
-                <a asp-action="CategoryAdd" asp-controller="Category" class="btn btn-success col-2">Agregar Categoria</a>
+                <button type="submit" class="btn btn-success col-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Categoria</button>
             </div>
         </div>
         <div class="card-body">
@@ -24,14 +24,14 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     @foreach (var item in @Model)
                     {
                         <tr>
                             <td>@Html.DisplayFor(x=> item.Description)</td>
                             <td>@Html.DisplayFor(x=> item.Statu.Description)</td>
                             <td>
-                                <a asp-action="CategoryUpdate" asp-controller="Category" asp-route-id="@item.Id"  class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                <a asp-action="CategoryUpdate" asp-controller="Category" asp-route-id="@item.Id" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                                 <button onclick="OnDelete(@item.Id)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
@@ -71,9 +71,9 @@
                             if (ok) {
                                 location.reload();
                             } else {
-                                 location.reload();
+                                location.reload();
                             }
-                        }) ;                    
+                        });
                 } else if (respuesta.isDenied) {
                     Swal.fire('Cancelado', '', 'error');
                 }

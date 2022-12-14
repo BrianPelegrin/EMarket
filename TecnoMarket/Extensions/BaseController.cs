@@ -24,5 +24,14 @@ namespace TecnoMarket.Extensions
             => TempData["notification"] = $"Swal.fire('{title}','{NotificationMessage}','{type.ToString().ToLower()}')";
 
         #endregion
+
+        #region
+        protected void BasicModal(string viewName, string modalTitle)
+        {
+            TempData["BasicModal"] = $"$('#ModalBody').load('{viewName}')"; 
+            ViewData["ModalTitle"] = modalTitle;
+        }
+             
+        #endregion
     }
 }

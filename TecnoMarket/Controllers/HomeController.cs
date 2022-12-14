@@ -11,12 +11,14 @@ namespace TecnoMarket.Controllers
     public class HomeController : BaseController<Category, HomeController>
     {
         private readonly IRepository<ProductPicture> _productPicture;
+        private readonly IRepository<Product> _products;
 
-        public HomeController(IRepository<ProductPicture> productPicture)
+        public HomeController(IRepository<ProductPicture> productPicture, IRepository<Product> products)
         {
             _productPicture = productPicture;
+            _products = products;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var query = _entity.GetAllWithInclude(x => x.Products.Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive)).Where(x=>x.StatuId != (int)EnumsStatus.Status.Inactive);
@@ -30,6 +32,14 @@ namespace TecnoMarket.Controllers
                 }
             }
             return View(queryMapped);
+        }
+
+        [HttpGet]
+        public IActionResult ProductView(int id)
+        {
+            var query = _products.GetByIdWithInclude(id, x => x.Category, x => x.Pictures);
+            var modelMaped = _mapper.Map<IEnumerable<ProductViewModel>>(query);
+            return View(modelMaped);
         }
 
     }

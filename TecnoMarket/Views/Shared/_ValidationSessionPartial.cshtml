@@ -6,20 +6,45 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="ProductList">Productos</a>
-    </li>
-    <li class="nav-item ">
-        <a class="nav-link text-darks" asp-area="" asp-controller="Category" asp-action="CategoryList">Categorias</a>
-    </li>
+    <p>
+
+        @{
+            var userName = UserManager.GetUserName(User);
+            var user = UserManager.FindByNameAsync(userName).Result;
+        }
+    </p>
+
+    @if (await UserManager.IsInRoleAsync(user, "Admin") || await UserManager.IsInRoleAsync(user, "Employee"))
+    {
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="ProductList">Productos</a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link text-darks" asp-area="" asp-controller="Category" asp-action="CategoryList">Categorias</a>
+        </li>
+    }
+    @if (await UserManager.IsInRoleAsync(user, "Admin"))
+    {
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-shield-lock"></i> Seguridad
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person-gear"></i> Usuarios</a></li>
+                <li><a class="dropdown-item" asp-action="RolesList" asp-controller="Roles"><i class="bi bi-person-lock"></i> Roles</a></li>
+            </ul>
+        </li>
+    }
+    @if(await UserManager.IsInRoleAsync(user, "User"))
+    {
+        
+    }
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            @{
-        var userName = UserManager.GetUserName(User);
-        var user = UserManager.FindByNameAsync(userName).Result;
-    }
-            @user.FullName
+
+            <strong>|</strong>  <i class="bi bi-person-circle"></i> @user.FullName
         </a>
         <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item" href="#">Perfil</a></li>

@@ -32,7 +32,7 @@ public static class ServicesRegistration
 
         services.Configure<IdentityOptions>(options =>
         {
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
             options.Lockout.MaxFailedAccessAttempts = 3;
             options.Password.RequireLowercase = false;
             options.Password.RequiredLength = 5;

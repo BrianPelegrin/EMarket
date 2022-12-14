@@ -9,10 +9,12 @@ namespace TecnoMarket.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public SessionController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public SessionController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -64,6 +66,19 @@ namespace TecnoMarket.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(!await _roleManager.RoleExistsAsync("Admin"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+                }
+                if (!await _roleManager.RoleExistsAsync("Employee"))
+                { 
+                    await _roleManager.CreateAsync(new IdentityRole { Name = "Employee" });  
+                }
+                if (!await _roleManager.RoleExistsAsync("User"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = "User" });
+                }
+
                 var user = new ApplicationUser
                 {
                     UserName = register.Email,
@@ -72,10 +87,18 @@ namespace TecnoMarket.Controllers
                     FullName = register.FullName
                 };
                 var creation = await _userManager.CreateAsync(user, register.Password);
-
                 if (creation.Succeeded)
                 {
-
+                    var userCreated = await _userManager.FindByEmailAsync(user.Email);
+                    if(_userManager.Users.Count() <= 1)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                    BasicNotificaction(NotificationType.Success, "Registro Exitoso");
                     return RedirectToAction(nameof(Login));
                 }
             }

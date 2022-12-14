@@ -9,7 +9,7 @@ using TecnoMarket.Utils;
 
 namespace TecnoMarket.Controllers
 {
-
+    [Authorize]
     public class ProductsController : BaseController<Product, ProductsController>
     {
         private readonly IRepository<Category> _categories;
@@ -20,8 +20,6 @@ namespace TecnoMarket.Controllers
             _categories = categories;
             _productPictures = productPictures;
         }
-
-        [Authorize]
         [HttpGet]
         public IActionResult ProductList(string? ProductName = null)
         {
@@ -34,13 +32,6 @@ namespace TecnoMarket.Controllers
             return View(modelMaped);
         }
 
-        [HttpGet]
-        public IActionResult ProductView(int id)
-        {
-            var query = _entity.GetByIdWithInclude(id, x => x.Category, x => x.Pictures);
-            var modelMaped = _mapper.Map<IEnumerable<ProductViewModel>>(query);
-            return View(modelMaped);
-        }
 
         [HttpGet]
         public IActionResult ProductAdd()

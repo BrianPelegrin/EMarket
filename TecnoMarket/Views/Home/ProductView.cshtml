@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TecnoMarket.Core.Entities.SecurityEntities
+@using TecnoMarket.Core.ViewModels;
+@model List<ProductViewModel>
+@inject UserManager<ApplicationUser> UserManager;
+@inject SignInManager<ApplicationUser> SignInManager;
+
+@foreach (var item in @Model)
+{
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6">
+                    @if (item.Pictures != null)
+                    {
+                        @if (item.Pictures.Count > 0)
+                        {
+
+                            <img class="card-img-top" src="@String.Format("data:image/jpg/jpeg;base64,{0}", item.Pictures.Select(x=>x.Image).First().ToString())" alt="...">
+                        }
+                        else
+                        {
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                        }
+                    }
+                </div>
+                <div class="col-md-6">
+                    <div class="small mb-1">@item.Category.Description</div>
+                    <h1 class="display-5 fw-bolder">@item.Name</h1>
+                    <div class="fs-5 mb-5">
+                        <span>$@item.Price</span>
+                    </div>
+                    <p class="lead">
+                        @item.Description
+                    </p>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <p>
+                            @{
+                                var userName = UserManager.GetUserName(User);
+                                var user = UserManager.FindByNameAsync(userName).Result;
+                            }
+                        </p>
+                        @if (await UserManager.IsInRoleAsync(user, "Admin") || await UserManager.IsInRoleAsync(user, "Employe"))
+                        {
+                            <div class="d-flex">
+                                <a class="btn btn-outline-dark flex-shrink-0" asp-action="ProductUpdate" asp-controller="Products" asp-route-id="@item.Id">
+                                    Editar
+                                </a>
+                            </div>
+                        }
+                        @if (await UserManager.IsInRoleAsync(user, "User"))
+                        {
+                            <div class="d-flex">
+                                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Add to cart
+                                </button>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        
+                    <div class="d-flex">
+                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}
