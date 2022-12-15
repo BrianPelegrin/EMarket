@@ -6,7 +6,7 @@
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
-
+        public int Stock { get; set; }
         public virtual ICollection<ProductPicture> Pictures { get; set; }
         public virtual Statu Statu { get; set; }
         public virtual Category Category { get; set; }

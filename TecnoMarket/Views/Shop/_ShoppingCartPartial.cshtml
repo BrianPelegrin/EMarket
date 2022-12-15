@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TecnoMarket.Core.Entities
+@using TecnoMarket.Core.Entities.SecurityEntities
+@using TecnoMarket.Core.Interfaces
+@inject IRepository<ShoppingCart> ShoppingCart;
+@inject UserManager<ApplicationUser> UserManager;
+@inject SignInManager<ApplicationUser> SignInManager;
+@{
+    Layout = null;
+    decimal total = 0;
+};
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        @{
+            var user = await UserManager.GetUserAsync(User);
+            var shopCart = ShoppingCart.GetAllWithInclude(x => x.Product.Category, x => x.Product.Pictures).Where(x => x.ApplicationUserId.Equals(user.Id)).ToList();
+            var products = shopCart.Select(x => x.Product).ToList();
+            var CartInfo = shopCart;
+            
+        }
+    </p>
+
+
+    <div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" scroll="true" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel"><i class="bi bi-cart-check"></i> Articulos en el Carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                
+            </div>
+            <div class="offcanvas-body">
+                @if (products.Count() > 0)
+                {
+
+                    @foreach (var product in products)
+                    {
+                        <div class="row justify-content-center">
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    @if (product.Pictures != null)
+                                    {
+                                        @if (product.Pictures.Count > 0)
+                                        {
+
+                                            <img class="img-fluid rounded-start" src="@String.Format("data:image/jpg/jpeg;base64,{0}", product.Pictures.Select(x=>x.Image).First().ToString())" alt="...">
+                                        }
+                                        else
+                                        {
+                                            <img class="bd-placeholder-img img-fluid rounded-start" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                                        }
+                                    }
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">@product.Name</h5>
+                                            <!-- Product price-->
+                                            <div class="fs-5 mb-5">
+                                                <span>$@product.Price</span>
+                                            </div>
+                                            <div class="fs-5 mb-5">
+                                                <span>Cantidad: @CartInfo.Where(x=>x.ProductId.Equals(product.Id)).Select(x=>x.Quantity).First()</span>
+                                            </div>
+                                            @{
+                                                total += CartInfo.Where(x => x.ProductId.Equals(product.Id)).Select(x => x.Quantity).First() * product.Price;
+                                            }
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" asp-action="ProductView" asp-controller="Home" asp-route-id="@product.Id">Ver Detalles</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <hr />
+                    <div>
+
+                    <h6>Total: $@total</h6>
+                    </div>
+
+                }
+                else
+                {
+
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+
+}
+
+
+
+

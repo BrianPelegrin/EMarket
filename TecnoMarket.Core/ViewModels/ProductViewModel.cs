@@ -14,10 +14,15 @@ namespace TecnoMarket.Core.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "La {0} es requerida")]
+        [Required(ErrorMessage = "El {0} es requerido")]
         [DisplayName("Precio")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Por favor indroduzca un {0} valido")]
         public decimal Price { get; set; }
+
+        [Required(ErrorMessage = "La {0} es requerida")]
+        [DisplayName("Cantidad en Almacen")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Por favor indroduzca una cantidad valida")]
+        public int Stock { get; set; }
         public int CategoryId { get; set; }
 
         public virtual ICollection<ProductPictureViewModel>? Pictures { get; set; }

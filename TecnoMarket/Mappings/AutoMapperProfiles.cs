@@ -13,7 +13,7 @@ namespace TecnoMarket.Mappings
             CreateMap<Statu, StatuViewModel>().ReverseMap();
             CreateMap<Picture, PictureViewModel>().ReverseMap();
             CreateMap<ProductPicture, ProductPictureViewModel>().ReverseMap();
-
+            CreateMap<ShoppingCart, ShoppingCartViewModel>().ReverseMap();
         }
     }
 }

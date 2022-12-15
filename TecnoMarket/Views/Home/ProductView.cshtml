@@ -1,9 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using TecnoMarket.Core.Entities
 @using TecnoMarket.Core.Entities.SecurityEntities
+@using TecnoMarket.Core.Interfaces
 @using TecnoMarket.Core.ViewModels;
 @model List<ProductViewModel>
 @inject UserManager<ApplicationUser> UserManager;
 @inject SignInManager<ApplicationUser> SignInManager;
+@inject IRepository<ShoppingCart> ShoppingCart;
 
 @foreach (var item in @Model)
 {
@@ -37,8 +40,7 @@
                     {
                         <p>
                             @{
-                                var userName = UserManager.GetUserName(User);
-                                var user = UserManager.FindByNameAsync(userName).Result;
+                                var user = await UserManager.GetUserAsync(User);
                             }
                         </p>
                         @if (await UserManager.IsInRoleAsync(user, "Admin") || await UserManager.IsInRoleAsync(user, "Employe"))
@@ -51,28 +53,81 @@
                         }
                         @if (await UserManager.IsInRoleAsync(user, "User"))
                         {
-                            <div class="d-flex">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Add to cart
-                                </button>
-                            </div>
+                            <p>
+                                @{
+                                    var query = ShoppingCart.GetAll().First(x => x.ProductId.Equals(item.Id));
+                                }
+                            </p>
+                            @if (query != null)
+                            {
+                                <div class="d-flex">
+                                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="@query.Quantity" style="max-width: 3rem" />
+                                    <button class="btn btn-outline-dark flex-shrink-0" onclick="OnBuy(@item.Id)" type="button">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Actualizar Carrito
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex">
+                                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                                    <button class="btn btn-outline-dark flex-shrink-0" onclick="OnBuy(@item.Id)" type="button">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Añadir al Carrito
+                                    </button>
+                                </div>
+                            }
+
                         }
                     }
                     else
                     {
-                        
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
-                    </div>
+                        <div class="d-flex">
+                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                            <button class="btn btn-outline-dark flex-shrink-0" onclick="OnBuy(@item.Id)" type="button">
+                                <i class="bi-cart-fill me-1"></i>
+                                Añadir al Carrito
+                            </button>
+                        </div>
                     }
                 </div>
             </div>
         </div>
     </section>
 }
+
+<script>
+    function OnBuy(id) {
+        let quantity = parseInt(document.getElementById('inputQuantity').value);
+        console.log('Cantidad: ', quantity);
+        console.log('Cuerpo: ', JSON.stringify({ id: id, quantity: quantity }));
+        Swal.fire({
+            title: 'Quieres agregar producto al carrito?',
+            icon: 'question',
+            showCancelButton: false,
+            showDenyButton: true,
+            denyButtonText: 'Cancelar'
+        })
+            .then((respuesta) => {
+                if (respuesta.isConfirmed) {
+                    fetch(`http://localhost:5211/Home/AddToCart`, {
+                        method: 'POST',
+                        body: JSON.stringify({ productId: id, quantity: quantity }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(({ ok }) => {
+                            if (ok) {
+                                location.reload();
+                            } else {
+                                location.reload();
+                            }
+                        });
+                } else if (respuesta.isDenied) {
+                    Swal.fire('Cancelado', '', 'error')
+                }
+            })
+    }
+</script>
