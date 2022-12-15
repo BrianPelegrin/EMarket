@@ -4,7 +4,7 @@ namespace TecnoMarket.Controllers
 {
     public class ShopController : Controller
     {
-        public IActionResult ProductsToBuyList()
+        public IActionResult Checkout()
         {
             return View();
         }

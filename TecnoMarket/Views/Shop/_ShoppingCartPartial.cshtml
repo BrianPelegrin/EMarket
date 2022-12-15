@@ -52,7 +52,7 @@
                                         }
                                     }
                                     <!-- Product details-->
-                                    <div class="card-body p-4">
+                                    <div class="card-body p-4"> 
                                         <div class="text-center">
                                             <!-- Product name-->
                                             <h5 class="fw-bolder">@product.Name</h5>
@@ -77,9 +77,10 @@
                         </div>
                     }
                     <hr />
-                    <div>
+                    <div class="row">
 
-                    <h6>Total: $@total</h6>
+                    <h6 class="col-6 mt-2">Total: $@total</h6>
+                    <a class="col-6 btn btn-success" asp-action="Checkout" asp-controller="Shop">Pagar</a>
                     </div>
 
                 }
