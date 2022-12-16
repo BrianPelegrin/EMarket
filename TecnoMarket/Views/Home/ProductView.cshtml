@@ -52,24 +52,7 @@
                             </div>
                         }
                         @if (await UserManager.IsInRoleAsync(user, "User"))
-                        {
-                            <p>
-                                @{
-                                    var query = ShoppingCart.GetAll().First(x => x.ProductId.Equals(item.Id));
-                                }
-                            </p>
-                            @if (query != null)
-                            {
-                                <div class="d-flex">
-                                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="@query.Quantity" style="max-width: 3rem" />
-                                    <button class="btn btn-outline-dark flex-shrink-0" onclick="OnBuy(@item.Id)" type="button">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        Actualizar Carrito
-                                    </button>
-                                </div>
-                            }
-                            else
-                            {
+                        {   
                                 <div class="d-flex">
                                     <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                                     <button class="btn btn-outline-dark flex-shrink-0" onclick="OnBuy(@item.Id)" type="button">
@@ -77,18 +60,14 @@
                                         Añadir al Carrito
                                     </button>
                                 </div>
-                            }
-
                         }
                     }
                     else
                     {
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" onclick="OnBuy(@item.Id)" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Añadir al Carrito
-                            </button>
+                            <a class="btn btn-outline-dark flex-shrink-0" asp-action="Login" asp-controller="Session" >
+                                Iniciar Sesion para agregar al carrito
+                            </a>
                         </div>
                     }
                 </div>

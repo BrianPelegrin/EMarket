@@ -56,11 +56,6 @@ namespace TecnoMarket.Controllers
             {
                 var user = await _userManager.FindByEmailAsync(_userManager.GetUserName(User));
                 var result = new ShoppingCart { ProductId = addToCartViewModel.ProductId, Quantity = addToCartViewModel.Quantity, ApplicationUserId = user.Id };
-                var query = _shoppingCart.GetAll().First(x => x.ProductId.Equals(addToCartViewModel.ProductId));
-                if (query != null)
-                {
-                    result.Id = query.Id;
-                }
                 result = _shoppingCart.Save(result);
 
                 if (result == null)

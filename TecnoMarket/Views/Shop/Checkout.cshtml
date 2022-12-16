@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    decimal total = 0
+    decimal total = 0;
 }
 
 <div class="container-fluid mt-3">
@@ -36,9 +36,9 @@
                                     <button onclick="OnDelete(@item.Id)" class="btn btn-danger"><i class="bi bi-toggles"></i></button>
                                 </td>
                             </tr>
-                            @{
-                                total += item.Pictures
-                            }
+                            //@{
+                            //    total += item.Pictures
+                            //}
                         }
                     </tbody>
                 </table>
