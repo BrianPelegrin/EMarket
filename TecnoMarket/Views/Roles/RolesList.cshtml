@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<IdentityRole>;
+
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header  ">
+            <div class="row d-inline-flex container-fluid">
+                <h2 class="card-title col-8">Lista de Roles</h2>
+                <div class="col-2"></div>
+                <button type="submit" class="btn btn-success col-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Rol</button>
+            </div>
+        </div>
+        <div class="card-body pb-3">
+            <div class="table-responsive">
+                <table class="table  table-striped table-hover  " id="myTable">
+                    <thead class="table-dark ">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x=> item.Id)</td>
+                                <td>@Html.DisplayFor(x=> item.Name)</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="RolesUpdate" asp-controller="Roles" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                    <button onclick="OnDelete(@item.Id)" class="btn btn-danger"><i class="bi bi-toggles"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            scrollY: '500px',
+            paging: true,
+            scrollCollapse: true
+        });
+    });
+</script>
+<partial name="_NotificationPartial" />
+
+<script>
+
+
+
+    function OnDelete(id) {
+        Swal.fire({
+            title: 'Quieres Modificar el estado de este producto?',
+            icon: 'question',
+            showCancelButton: false,
+            showDenyButton: true,
+            denyButtonText: 'Cancelar'
+        })
+            .then((respuesta) => {
+                if (respuesta.isConfirmed) {
+                    fetch(`http://localhost:5211/Roles/RolesDelete/${id}`, {
+                        method: 'DELETE',
+                    })
+                        .then(({ ok }) => {
+                            if (ok) {
+                                location.reload();
+                            } else {
+                                location.reload();
+                            }
+                        });
+                } else if (respuesta.isDenied) {
+                    Swal.fire('Cancelado', '', 'error')
+                }
+            })
+    }
+</script>
