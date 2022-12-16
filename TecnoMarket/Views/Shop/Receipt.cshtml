@@ -1,0 +1,44 @@
+﻿@using TecnoMarket.Core.ViewModels
+@model List<TransactionViewModel>;
+
+@{
+    ViewData["Title"] = "Recibo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Recibo de Pago</h4>
+        </div>
+        <div class="card-body pb-3">
+            <div class="table-responsive">
+                <table class="table  table-striped table-hover" id="myTable">
+                    <thead class="table-dark ">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x=> item.Product.Name)</td>
+                                <td>@Html.DisplayFor(x=> item.Product.Description)</td>
+                                <td>@Html.DisplayFor(x=> item.Product.Price)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="card-footer ">
+            <div class="row">
+                <a asp-action="Payment" asp-controller="Products" class="btn btn-success col-2">Pagar</a>
+            </div>
+        </div>
+    </div>
+</div>

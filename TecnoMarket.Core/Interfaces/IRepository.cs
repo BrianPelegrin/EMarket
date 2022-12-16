@@ -15,6 +15,7 @@ namespace TecnoMarket.Core.Interfaces
         public IQueryable<T> GetByIdWithInclude(int id,params Expression<Func<T, object>>[] IncludeProperties);
         public T Save(T entity);
         public T Delete(int id);
+        public T DeletePermanent(int id);
 
 
     }

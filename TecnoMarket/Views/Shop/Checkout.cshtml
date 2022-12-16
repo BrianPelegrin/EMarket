@@ -1,5 +1,5 @@
 ﻿@using TecnoMarket.Core.ViewModels
-@model List<ProductViewModel>;
+@model List<ShoppingCartViewModel>;
 
 @{
     ViewData["Title"] = "Checkout";
@@ -9,36 +9,32 @@
 
 <div class="container-fluid mt-3">
     <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Lista de Articulos en el Carrito</h4>
+        </div>
         <div class="card-body pb-3">
             <div class="table-responsive">
-                <table class="table  table-striped table-hover  " id="myTable">
+                <table class="table  table-striped table-hover" id="myTable">
                     <thead class="table-dark ">
                         <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
                             <th>Price</th>
-                            <th>Categoria</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in @Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(x=> item.Name)</td>
-                                <td>@Html.DisplayFor(x=> item.Description)</td>
-                                <td>@Html.DisplayFor(x=> item.Price)</td>
-                                <td>@Html.DisplayFor(x=> item.Category.Description)</td>
-                                <td>@Html.DisplayFor(x=> item.Statu.Description)</td>
-                                <td>
-                                    <a class="btn btn-primary" asp-action="ProductUpdate" asp-controller="Products" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
-                                    <button onclick="OnDelete(@item.Id)" class="btn btn-danger"><i class="bi bi-toggles"></i></button>
-                                </td>
+                                <td>@Html.DisplayFor(x=> item.Product.Name)</td>
+                                <td>@Html.DisplayFor(x=> item.Product.Description)</td>
+                                <td>@Html.DisplayFor(x=> item.Product.Price)</td>
                             </tr>
-                            //@{
-                            //    total += item.Pictures
-                            //}
+                            <p>
+                                @{
+                                    total += item.Product.Price * item.Quantity;
+                                }
+                            </p>
                         }
                     </tbody>
                 </table>
@@ -48,7 +44,7 @@
         <div class="card-footer ">
             <div class="row">
                 <h4 class="col-6">Total: @total</h4>
-                <a asp-action="Payment" asp-controller="Products" class="btn btn-success col-2">Pagar</a>
+                <button onclick="OnPay()" class="btn btn-success col-2">Pagar</button>
             </div>
         </div>
     </div>
@@ -63,13 +59,13 @@
         });
     });
 </script>
+
 <partial name="_NotificationPartial" />
 
 <script>
 
-
-
-    function OnDelete(id) {
+    function OnPay() {
+        
         Swal.fire({
             title: 'Quieres Modificar el estado de este producto?',
             icon: 'question',
@@ -79,8 +75,9 @@
         })
             .then((respuesta) => {
                 if (respuesta.isConfirmed) {
-                    fetch(`http://localhost:5211/Products/ProductDelete/${id}`, {
-                        method: 'DELETE',
+                    fetch(`http://localhost:5211/Shop/Checkout`, {
+                        method: 'POST',
+                        body: "Prueba"
                     })
                         .then(({ ok }) => {
                             if (ok) {

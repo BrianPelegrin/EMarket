@@ -28,6 +28,16 @@ namespace TecnoMarket.Infraestructure.Repositories
             return entity;
         }
 
+        public T DeletePermanent(int id)
+        {
+            var entity = _entity.FirstOrDefault(x => x.Id == id);
+            if (entity == null) return null;
+
+            _entity.Remove(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
         public T Get(int id)
         {
             var entity = _entity.AsNoTracking().FirstOrDefault(x => x.Id == id);
