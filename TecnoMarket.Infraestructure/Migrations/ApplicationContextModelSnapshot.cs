@@ -166,7 +166,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 12, 15, 21, 40, 15, 937, DateTimeKind.Local).AddTicks(5883));
+                        .HasDefaultValue(new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3267));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -193,7 +193,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 937, DateTimeKind.Local).AddTicks(6294),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3664),
                             Description = "Accesorios",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StatuId = 1,
@@ -202,7 +202,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 937, DateTimeKind.Local).AddTicks(6298),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3666),
                             Description = "Monitores",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StatuId = 1,
@@ -211,7 +211,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 937, DateTimeKind.Local).AddTicks(6299),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3668),
                             Description = "Laptops",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StatuId = 1,
@@ -260,7 +260,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 12, 15, 21, 40, 15, 943, DateTimeKind.Local).AddTicks(1422));
+                        .HasDefaultValue(new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(1824));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -302,7 +302,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 943, DateTimeKind.Local).AddTicks(1673),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(2122),
                             Description = "8D Sound, Surround",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Razor Handset",
@@ -315,7 +315,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 943, DateTimeKind.Local).AddTicks(1676),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(2127),
                             Description = "144hz, 1920x1080FHD, 1ms",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "MSI Optix G271",
@@ -328,7 +328,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 943, DateTimeKind.Local).AddTicks(1678),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(2129),
                             Description = "16 Gb RAM, GTX 1660 6GB, I5-10470H",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "HP Pavilion Gaming 15",
@@ -468,7 +468,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("12/15/2022 21:40:15");
+                        .HasDefaultValue("12/15/2022 21:54:53");
 
                     b.HasKey("Id");
 
@@ -478,7 +478,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 946, DateTimeKind.Local).AddTicks(2045),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 158, DateTimeKind.Local).AddTicks(5300),
                             Description = "Activo",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserCreator = "Admin"
@@ -486,7 +486,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2022, 12, 15, 21, 40, 15, 946, DateTimeKind.Local).AddTicks(2047),
+                            CreationDate = new DateTime(2022, 12, 15, 21, 54, 53, 158, DateTimeKind.Local).AddTicks(5303),
                             Description = "Inactivo",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserCreator = "Admin"

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TecnoMarket.Infraestructure.Migrations
 {
-    public partial class inicial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,13 +50,29 @@ namespace TecnoMarket.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserCreator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pictures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Status",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    UserCreator = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "11/24/2022 19:57:38"),
+                    UserCreator = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "12/15/2022 21:54:53"),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -83,7 +99,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +120,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +140,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,13 +158,13 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,7 +184,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,7 +195,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     UserCreator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 11, 24, 19, 57, 38, 363, DateTimeKind.Local).AddTicks(9752)),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3267)),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StatuId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -191,7 +207,7 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.StatuId,
                         principalTable: "Status",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,8 +220,9 @@ namespace TecnoMarket.Infraestructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false),
                     UserCreator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 11, 24, 19, 57, 38, 364, DateTimeKind.Local).AddTicks(1211)),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(1824)),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StatuId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -222,48 +239,106 @@ namespace TecnoMarket.Infraestructure.Migrations
                         column: x => x.StatuId,
                         principalTable: "Status",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsPictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    StatuId1 = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsPictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PricturesProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProductsPictures_Pictures_Id",
+                        column: x => x.Id,
+                        principalTable: "Pictures",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProductsPictures_Status_StatuId1",
+                        column: x => x.StatuId1,
+                        principalTable: "Status",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UserCreator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Status",
                 columns: new[] { "Id", "CreationDate", "Description", "ModifiedDate", "UserCreator" },
-                values: new object[] { 1, new DateTime(2022, 11, 24, 19, 57, 38, 364, DateTimeKind.Local).AddTicks(3111), "Activo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Admin" });
+                values: new object[] { 1, new DateTime(2022, 12, 15, 21, 54, 53, 158, DateTimeKind.Local).AddTicks(5300), "Activo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Status",
                 columns: new[] { "Id", "CreationDate", "Description", "ModifiedDate", "UserCreator" },
-                values: new object[] { 2, new DateTime(2022, 11, 24, 19, 57, 38, 364, DateTimeKind.Local).AddTicks(3112), "Inactivo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Admin" });
+                values: new object[] { 2, new DateTime(2022, 12, 15, 21, 54, 53, 158, DateTimeKind.Local).AddTicks(5303), "Inactivo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreationDate", "Description", "ModifiedDate", "StatuId", "UserCreator" },
-                values: new object[] { 1, new DateTime(2022, 11, 24, 19, 57, 38, 363, DateTimeKind.Local).AddTicks(9897), "Accesorios", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin" });
+                values: new object[] { 1, new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3664), "Accesorios", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreationDate", "Description", "ModifiedDate", "StatuId", "UserCreator" },
-                values: new object[] { 2, new DateTime(2022, 11, 24, 19, 57, 38, 363, DateTimeKind.Local).AddTicks(9898), "Monitores", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin" });
+                values: new object[] { 2, new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3666), "Monitores", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreationDate", "Description", "ModifiedDate", "StatuId", "UserCreator" },
-                values: new object[] { 3, new DateTime(2022, 11, 24, 19, 57, 38, 363, DateTimeKind.Local).AddTicks(9899), "Laptops", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin" });
+                values: new object[] { 3, new DateTime(2022, 12, 15, 21, 54, 53, 143, DateTimeKind.Local).AddTicks(3668), "Laptops", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "ModifiedDate", "Name", "Price", "StatuId", "UserCreator" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 24, 19, 57, 38, 364, DateTimeKind.Local).AddTicks(1332), "8D Sound, Surround", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Razor Handset", 2500.00m, 1, "Admin" });
+                columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "ModifiedDate", "Name", "Price", "StatuId", "Stock", "UserCreator" },
+                values: new object[] { 1, 1, new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(2122), "8D Sound, Surround", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Razor Handset", 2500.00m, 1, 0, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "ModifiedDate", "Name", "Price", "StatuId", "UserCreator" },
-                values: new object[] { 2, 2, new DateTime(2022, 11, 24, 19, 57, 38, 364, DateTimeKind.Local).AddTicks(1333), "144hz, 1920x1080FHD, 1ms", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MSI Optix G271", 17000.00m, 1, "Admin" });
+                columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "ModifiedDate", "Name", "Price", "StatuId", "Stock", "UserCreator" },
+                values: new object[] { 2, 2, new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(2127), "144hz, 1920x1080FHD, 1ms", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MSI Optix G271", 17000.00m, 1, 0, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "ModifiedDate", "Name", "Price", "StatuId", "UserCreator" },
-                values: new object[] { 3, 3, new DateTime(2022, 11, 24, 19, 57, 38, 364, DateTimeKind.Local).AddTicks(1334), "16 Gb RAM, GTX 1660 6GB, I5-10470H", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "HP Pavilion Gaming 15", 40000.00m, 1, "Admin" });
+                columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "ModifiedDate", "Name", "Price", "StatuId", "Stock", "UserCreator" },
+                values: new object[] { 3, 3, new DateTime(2022, 12, 15, 21, 54, 53, 154, DateTimeKind.Local).AddTicks(2129), "16 Gb RAM, GTX 1660 6GB, I5-10470H", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "HP Pavilion Gaming 15", 40000.00m, 1, 0, "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -318,6 +393,26 @@ namespace TecnoMarket.Infraestructure.Migrations
                 name: "IX_Products_StatuId",
                 table: "Products",
                 column: "StatuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsPictures_ProductId",
+                table: "ProductsPictures",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsPictures_StatuId1",
+                table: "ProductsPictures",
+                column: "StatuId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_ApplicationUserId",
+                table: "ShoppingCarts",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_ProductId",
+                table: "ShoppingCarts",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -338,13 +433,22 @@ namespace TecnoMarket.Infraestructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ProductsPictures");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Pictures");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Categories");
