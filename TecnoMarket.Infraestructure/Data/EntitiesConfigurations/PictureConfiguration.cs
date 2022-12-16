@@ -14,6 +14,9 @@ namespace TecnoMarket.Infraestructure.Data.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<Picture> builder)
         {
             builder.ToTable("Pictures");
+
+            builder.Ignore(x => x.StatuId);
+            builder.Ignore(x => x.Statu);
         }
     }
 }
