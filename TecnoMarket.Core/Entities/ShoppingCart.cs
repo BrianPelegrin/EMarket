@@ -13,6 +13,7 @@ namespace TecnoMarket.Core.Entities
         public int ProductId { get; set; }
         public int Quantity { get; set; }
 
+        public Statu Statu { get; set; }
         public Product Product { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }

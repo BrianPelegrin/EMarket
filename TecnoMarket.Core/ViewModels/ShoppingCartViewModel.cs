@@ -13,6 +13,7 @@ namespace TecnoMarket.Core.ViewModels
         public int ProductId { get; set; }
         public int Quantity { get; set; }
 
+        public StatuViewModel Statu { get; set; }
         public ProductViewModel Product { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }

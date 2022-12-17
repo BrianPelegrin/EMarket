@@ -14,7 +14,7 @@
     <p>
         @{
             var user = await UserManager.GetUserAsync(User);
-            var shopCart = ShoppingCart.GetAllWithInclude(x => x.Product.Category, x => x.Product.Pictures).Where(x => x.ApplicationUserId.Equals(user.Id)).ToList();
+            var shopCart = ShoppingCart.GetAllWithInclude(x => x.Product.Category, x => x.Product.Pictures).Where(x => x.ApplicationUserId.Equals(user.Id)).Where(x=>x.StatuId == (int)EnumsStatus.Status.Active).ToList();
             var products = shopCart.Select(x => x.Product).ToList();
             var CartInfo = shopCart;
             

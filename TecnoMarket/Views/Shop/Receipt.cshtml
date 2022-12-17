@@ -1,5 +1,5 @@
 ﻿@using TecnoMarket.Core.ViewModels
-@model List<TransactionViewModel>;
+@model List<ShoppingCartViewModel>;
 
 @{
     ViewData["Title"] = "Recibo";
@@ -37,8 +37,18 @@
         </div>
         <div class="card-footer ">
             <div class="row">
-                <a asp-action="Payment" asp-controller="Products" class="btn btn-success col-2">Pagar</a>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-success col-2">Volver al Inicio</a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    window.addEventListener('load', function() {
+        Swal.fire(
+            'Compra Exitosa',
+            '',
+            'success'
+        )
+    });
+</script>

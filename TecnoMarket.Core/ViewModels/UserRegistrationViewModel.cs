@@ -19,7 +19,7 @@ namespace TecnoMarket.Core.ViewModels
 
         [Required(ErrorMessage = "{0} es requerido")]
         [DisplayName("Confirmar Contraseña")]
-        [Compare(nameof(Password), ErrorMessage ="Las Contraseñas no coinciden")]
+        [Compare(nameof(Password), ErrorMessage = "Las Contraseñas no coinciden")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = string.Empty;
 

@@ -14,8 +14,6 @@ namespace TecnoMarket.Infraestructure.Data.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<ShoppingCart> builder)
         {
             builder.ToTable("ShoppingCarts");
-
-            builder.Ignore(x => x.StatuId);
         }
     }
 }

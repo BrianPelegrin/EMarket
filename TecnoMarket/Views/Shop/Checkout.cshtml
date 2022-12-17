@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in @Model)
+                        @foreach (var item in @Model.Where(x=>x.StatuId == (int)EnumsStatus.Status.Active))
                         {
                             <tr>
                                 <td>@Html.DisplayFor(x=> item.Product.Name)</td>
@@ -43,8 +43,10 @@
         </div>
         <div class="card-footer ">
             <div class="row">
-                <h4 class="col-6">Total: @total</h4>
-                <button onclick="OnPay()" class="btn btn-success col-2">Pagar</button>
+               
+                    <input type="hidden" name="id" />
+                    <button onclick="OnPay()"  class="btn btn-success col-2">Pagar</button>
+
             </div>
         </div>
     </div>
@@ -65,9 +67,10 @@
 <script>
 
     function OnPay() {
-        
+
+        console.log('@Html.ActionLink("","Receipt")'),
         Swal.fire({
-            title: 'Quieres Modificar el estado de este producto?',
+            title: 'Seguro que quieres proceder al pago?',
             icon: 'question',
             showCancelButton: false,
             showDenyButton: true,
@@ -79,12 +82,9 @@
                         method: 'POST',
                         body: "Prueba"
                     })
-                        .then(({ ok }) => {
-                            if (ok) {
-                                location.reload();
-                            } else {
-                                location.reload();
-                            }
+                        .then(() => {
+
+                            location.href = 'http://localhost:5211/Shop/Receipt';
                         });
                 } else if (respuesta.isDenied) {
                     Swal.fire('Cancelado', '', 'error')

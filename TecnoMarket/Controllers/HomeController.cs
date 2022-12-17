@@ -79,7 +79,7 @@ namespace TecnoMarket.Controllers
             if (addToCartViewModel.ProductId > 0 && addToCartViewModel.Quantity > 0)
             {
                 var user = await _userManager.FindByEmailAsync(_userManager.GetUserName(User));
-                var result = new ShoppingCart { ProductId = addToCartViewModel.ProductId, Quantity = addToCartViewModel.Quantity, ApplicationUserId = user.Id };
+                var result = new ShoppingCart { ProductId = addToCartViewModel.ProductId, Quantity = addToCartViewModel.Quantity, ApplicationUserId = user.Id, StatuId = (int)EnumsStatus.Status.Active };
                 result = _shoppingCart.Save(result);
 
                 if (result == null)
