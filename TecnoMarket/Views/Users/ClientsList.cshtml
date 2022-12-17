@@ -3,7 +3,7 @@
 @model List<ApplicationUser>;
 
 @{
-    ViewData["Title"] = "Empleados";
+    ViewData["Title"] = "Clientes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,9 +11,8 @@
     <div class="card">
         <div class="card-header  ">
             <div class="row d-inline-flex container-fluid">
-                <h2 class="card-title col-8">Lista de Empleados</h2>
+                <h2 class="card-title col-8">Lista de Clientes</h2>
                 <div class="col-2"></div>
-                <a asp-action="EmployeeAdd" asp-controller="Users" class="btn btn-success col-2">Agregar Empleado</a>
             </div>
         </div>
         <div class="card-body pb-3">
@@ -37,7 +36,7 @@
                                 <td>@Html.DisplayFor(x=> item.Email)</td>
                                 <td>@if(item.LockoutEnabled){<i class="bi bi-lock"></i>}else{<i class="bi bi-unlock"></i>}</td>
                                 <td>
-                                    <a class="btn btn-primary" asp-action="EmployeeEdit" asp-controller="Users" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                    <a class="btn btn-primary" asp-action="ClientsEdit" asp-controller="Users" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
                                     <button onclick="OnDelete('@item.Id')" class="btn btn-danger"><i class="bi bi-toggles"></i></button>
                                 </td>
                             </tr>

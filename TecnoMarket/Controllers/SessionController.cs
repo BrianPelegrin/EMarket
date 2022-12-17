@@ -38,7 +38,7 @@ namespace TecnoMarket.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                if (sesion.IsLockedOut)
+                if (sesion.IsLockedOut || _userManager.FindByEmailAsync(login.Email).Result.LockoutEnabled)
                 {
                     BasicNotificaction(NotificationType.Error, "Usuario Bloqueado", "El Usuario se ha bloqueado temporalmente por exceso de intentos fallidos");
                 }
@@ -101,6 +101,7 @@ namespace TecnoMarket.Controllers
                     BasicNotificaction(NotificationType.Success, "Registro Exitoso");
                     return RedirectToAction(nameof(Login));
                 }
+                
             }
 
             return View();

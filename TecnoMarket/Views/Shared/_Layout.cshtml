@@ -26,18 +26,25 @@
                     <ul class="navbar-nav flex-grow-1 d-flex justify-content-start">
                         <li class="nav-item">
                             <a class="nav-link  text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            
                         </li>
-
+                        <li class="nav-item">
+                            <form class="d-flex"  asp-action="Index" asp-controller="Home" method="get">
+                                <input class="form-control me-2" type="text" name="SearchValue"  placeholder="Buscar producto...">
+                                <button class="btn btn-outline-dark mt-auto" type="submit">Buscar</button>
+                            </form>
+                        </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
                         <partial name="_ValidationSessionPartial" />
                     </ul>
+
                 </div>
             </div>
         </nav>
     </header>
     <partial name="_ModalPartial" />
-     <partial name="~/Views/Shop/_ShoppingCartPartial.cshtml" />
+    <partial name="~/Views/Shop/_ShoppingCartPartial.cshtml" />
     <div class="d-flex flex-column mb-5">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -46,7 +53,7 @@
 
 
     <footer class="border-top footer text-muted  bg-white">
-    <div class=" container text-center text-black">Copyright© Brian Pelegrin</div>
+        <div class=" container text-center text-black">Copyright© Brian Pelegrin</div>
     </footer>
 
 

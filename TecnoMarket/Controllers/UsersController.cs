@@ -84,7 +84,12 @@ namespace TecnoMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                               var creation = await _userManager.UpdateAsync(employee);
+                var user = await _userManager.FindByIdAsync(employee.Id);
+
+                user.FullName = employee.FullName;
+                user.PhoneNumber = employee.PhoneNumber;
+                var creation = await _userManager.UpdateAsync(user);
+
                 if (creation.Succeeded)
                 {
 
@@ -121,10 +126,18 @@ namespace TecnoMarket.Controllers
 
 
         [HttpGet]
-        public IActionResult ClientsList()
+        public async Task<IActionResult> ClientsList()
         {
-            var query = _userManager.Users.ToList().Where(x => _userManager.IsInRoleAsync(x, "User").Result);
-            return View(query);
+            var users = new List<ApplicationUser>();
+            var query = _userManager.Users.ToList();
+            foreach (var user in query)
+            {
+                if (await _userManager.IsInRoleAsync(user, "User"))
+                {
+                    users.Add(user);
+                }
+            }
+            return View(users);
         }
 
         [HttpGet]
@@ -134,26 +147,56 @@ namespace TecnoMarket.Controllers
         }
 
         [HttpPost]
-        public IActionResult ClientsEdit(ApplicationUser client)
+        public async Task<IActionResult> ClientsEdit(ApplicationUser client)
         {
-            var query = _userManager.Users.ToList().Where(x => _userManager.IsInRoleAsync(x, "User").Result);
-            BasicNotificaction(NotificationType.Success, "Registro Exitoso");
-            return View("ClientsList");
+            var user = await _userManager.FindByIdAsync(client.Id);
+
+            user.FullName = client.FullName;
+            user.PhoneNumber = client.PhoneNumber;
+            var creation = await _userManager.UpdateAsync(user);
+
+            if (creation.Succeeded)
+            {
+
+                BasicNotificaction(NotificationType.Success, "Actualizacion Exitosa");
+                return RedirectToAction(nameof(EmployeeList));
+            }
+            else
+            {
+                BasicNotificaction(NotificationType.Success, "Ocurrio un Error al Actualizar");
+                return View();
+            }
+
+
         }
 
 
         [HttpGet]
-        public IActionResult ProfileEdit()
+        public async Task< IActionResult> ProfileEdit()
         {
-            return View();
+            return View(await _userManager.GetUserAsync(User));
         }
 
         [HttpPost]
-        public IActionResult ProfileEdit(ApplicationUser profile)
+        public async Task<IActionResult> ProfileEdit(ApplicationUser profile)
         {
-            var query = _userManager.GetUserAsync(User).Result;
-            BasicNotificaction(NotificationType.Success, "Registro Exitoso");
-            return View("ClientsList");
+            var user = await _userManager.FindByIdAsync(profile.Id);
+
+            user.FullName = profile.FullName;
+            user.PhoneNumber = profile.PhoneNumber;
+            var creation = await _userManager.UpdateAsync(user);
+
+            if (creation.Succeeded)
+            {
+
+                BasicNotificaction(NotificationType.Success, "Actualizacion Exitosa");
+                return RedirectToAction(nameof(EmployeeList));
+            }
+            else
+            {
+                BasicNotificaction(NotificationType.Success, "Ocurrio un Error al Actualizar");
+                return View();
+            }
         }
     }
 }

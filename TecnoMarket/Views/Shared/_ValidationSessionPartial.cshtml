@@ -32,7 +32,8 @@
                 <i class="bi bi-shield-lock"></i> Seguridad
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" asp-action="EmployeeList" asp-controller="Users"><i class="bi bi-person-gear"></i> Usuarios</a></li>
+                <li><a class="dropdown-item" asp-action="EmployeeList" asp-controller="Users"><i class="bi bi-person-gear"></i> Administrar Empleados</a></li>
+                <li><a class="dropdown-item" asp-action="ClientsList" asp-controller="Users"><i class="bi bi-person-gear"></i> Administrar Clientes</a></li>
             </ul>
         </li>
     }
@@ -50,7 +51,7 @@
             <strong>|</strong>  <i class="bi bi-person-circle"></i> @user.FullName
         </a>
         <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" asp-action="ProfileEdit" asp-controller="Users">Perfil</a></li>
             <hr />
             <li><button class="dropdown-item" onclick="OnLogout()"><i class="bi bi-box-arrow-left"></i>   Logout</button></li>
         </ul>

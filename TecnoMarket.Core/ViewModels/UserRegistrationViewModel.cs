@@ -14,6 +14,7 @@ namespace TecnoMarket.Core.ViewModels
         [Required(ErrorMessage = "La {0} es requerida")]
         [DisplayName("Contraseña")]
         [DataType(DataType.Password)]
+        [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "La clave deberia tener al menos 8 caracteres y contener 3 de 4 de los siguientes: mayusculas (A-Z), minusculas (a-z), numeros (0-9) y un caracter especial (e.g. !@#$%^&*)")]
         public string Password { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "{0} es requerido")]

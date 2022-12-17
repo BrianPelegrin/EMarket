@@ -28,6 +28,7 @@ namespace TecnoMarket.Controllers
         public IActionResult CategoryAdd(CategoryViewModel Category)
         {
             var modelMaped = _mapper.Map<Category>(Category);
+            modelMaped.UserCreator = User.Identity.Name;
             var modelSaved = _entity.Save(modelMaped);
             if (modelSaved == null)
             {

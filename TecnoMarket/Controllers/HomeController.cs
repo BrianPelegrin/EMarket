@@ -25,19 +25,43 @@ namespace TecnoMarket.Controllers
             _userManager = userManager;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string SearchValue = null)
         {
-            var query = _entity.GetAllWithInclude(x => x.Products.Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive)).Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive);
-            var pictures = _productPicture.GetAll();
-            var queryMapped = _mapper.Map<IEnumerable<CategoryViewModel>>(query);
-            foreach (var productList in queryMapped.Select(x => x.Products))
+            if (string.IsNullOrEmpty(SearchValue))
             {
-                foreach (var product in productList)
+                var query = _entity.GetAllWithInclude(x => x.Products.Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive)).Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive);
+                var pictures = _productPicture.GetAll();
+                var queryMapped = _mapper.Map<IEnumerable<CategoryViewModel>>(query);
+                foreach (var productList in queryMapped.Select(x => x.Products))
                 {
-                    product.Pictures = _mapper.Map<ICollection<ProductPictureViewModel>>(pictures.Where(x => x.ProductId == product.Id).ToList());
+                    foreach (var product in productList)
+                    {
+                        product.Pictures = _mapper.Map<ICollection<ProductPictureViewModel>>(pictures.Where(x => x.ProductId == product.Id).ToList());
+                    }
                 }
+
+                return View(queryMapped);
             }
-            return View(queryMapped);
+            else
+            {
+                var query = _entity.GetAllWithInclude(x => x.Products.Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive)).Where(x => x.StatuId != (int)EnumsStatus.Status.Inactive);
+                var pictures = _productPicture.GetAll();
+                var queryMapped = _mapper.Map<IEnumerable<CategoryViewModel>>(query);
+                var lista = new List<ProductViewModel>();
+                foreach (var productList in queryMapped.Select(x => x.Products))
+                {
+                    foreach (var product in productList)
+                    {
+                        product.Pictures = _mapper.Map<ICollection<ProductPictureViewModel>>(pictures.Where(x => x.ProductId == product.Id).ToList());
+                    }
+                }
+                foreach(var product in queryMapped.Select(x=>x.Products))
+                {
+                    lista.AddRange(product.Where(x => x.Name.Contains(SearchValue)));
+                }
+                queryMapped.ForEach(x => x.Products = lista);
+                return View(queryMapped);
+            }
         }
 
         [HttpGet]
@@ -76,6 +100,6 @@ namespace TecnoMarket.Controllers
             }
 
         }
-       
+
     }
 }
